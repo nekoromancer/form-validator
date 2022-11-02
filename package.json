@@ -1,0 +1,26 @@
+{
+  "name": "@web-tech-team/fv",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^9.2.2",
+    "rollup": "^2.70.2",
+    "rollup-plugin-uglify": "^6.0.4"
+  },
+  "main": "dest/index.js",
+  "scripts": {
+    "test": "mocha --exit \"./test/**/*.spec.js\"",
+    "build": "npm test && rollup -c",
+    "deploy": "npm run build && git push --follow-tags && npm publish"
+  },
+  "author": "Seungyeop Lee",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {},
+  "repository": {
+    "url": "https://github.krafton.com/Web-Tech-Team/fv",
+    "type": "git"
+  }
+}
