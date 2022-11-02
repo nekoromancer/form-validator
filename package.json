@@ -10,6 +10,10 @@
     "rollup-plugin-uglify": "^6.0.4"
   },
   "main": "dest/index.js",
+  "module": "dest/index.js",
+  "files": [
+    "dest"
+  ],
   "scripts": {
     "test": "mocha --exit \"./test/**/*.spec.js\"",
     "build": "npm test && rollup -c",
@@ -17,10 +21,13 @@
   },
   "author": "Seungyeop Lee",
   "license": "MIT",
-  "description": "",
+  "description": "Form validation library",
   "dependencies": {},
   "repository": {
-    "url": "https://github.krafton.com/Web-Tech-Team/fv",
+    "url": "https://github.krafton.com/Web-Tech-Team/form-validator",
     "type": "git"
+  },
+  "publishConfig": {
+    "@web-tech-team:registry": "https://github.krafton.com/_registry/npm/"
   }
 }
