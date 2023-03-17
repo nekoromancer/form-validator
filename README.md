@@ -1,11 +1,12 @@
 # form-validation
 ## Usage
-```javascript
-import { FV, r } from '<Library path>/index.ts'
+```typescript
+import { FV, r } from '@web-tech-team/fv'
+import type { ValidationResult } from '@web-tech-team/fv';
 ```
 ### FV
-```javascript
-const validationResult = FV([
+```typescript
+const validationResult: ValidationResult = FV([
     {
         key: 'username',
         value: '',
