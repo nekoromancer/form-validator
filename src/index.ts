@@ -1,6 +1,31 @@
-import rules  from "./Rules.js";
+import rules  from "./Rules";
 
-export const FV = tasks => {
+type Task = {
+    key: string;
+    value: any;
+    rules: Function[];
+}
+
+type Result = {
+    messages: string[];
+    isPassed: boolean;
+}
+
+type TaskResult = {
+    [key: string]: Result;
+}
+
+export type ValidationResult = {
+    result: TaskResult;
+    messages: string[];
+    firstMessage: string;
+    lastMessage: string;
+    isPassed: boolean;
+    orFirst: Function;
+    orLast: Function;
+}
+
+export const FV = (tasks: Task[]): ValidationResult => {
     const data = tasks.map(task => {
         const taskResult = task.rules.map(rule => rule(task.value))
         return {
@@ -10,11 +35,11 @@ export const FV = tasks => {
         }
     })
     const result = Object.fromEntries(data.map(item => [
-      item.key,
+        item.key,
         {
             messages: item.result
                 .filter(result => !result.isSuccessValue)
-                .map(({ val }) => val),
+                .map(({val}) => val),
             isPassed: item.isPassed
         }
     ]))
@@ -36,12 +61,12 @@ export const FV = tasks => {
         firstMessage,
         lastMessage,
         isPassed,
-        orFirst: (onPassed, onFailed) => {
+        orFirst: (onPassed: Function, onFailed: Function) => {
             return isPassed
                 ? onPassed()
                 : onFailed(firstMessage)
         },
-        orLast: (onPassed, onFailed) => {
+        orLast: (onPassed: Function, onFailed: Function) => {
             return isPassed
                 ? onPassed()
                 : onFailed(lastMessage)

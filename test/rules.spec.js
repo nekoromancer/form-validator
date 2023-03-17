@@ -1,4 +1,4 @@
-import {FV, r} from "../src/index.js";
+import { FV, r } from '../dest/index.js';
 import pkg from 'chai/index.js';
 const { expect } = pkg;
 

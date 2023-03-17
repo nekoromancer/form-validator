@@ -1,7 +1,7 @@
 # form-validation
 ## Usage
 ```javascript
-import { FV, r } from '<Library path>/index.js'
+import { FV, r } from '<Library path>/index.ts'
 ```
 ### FV
 ```javascript
