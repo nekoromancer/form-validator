@@ -1,5 +1,5 @@
 import { Success, Fail } from './Result'
-import { curry } from './Utils'
+import curry from 'lodash.curry';
 
 const rules = {
     required: curry((message: string) => (value: any) => value !== null

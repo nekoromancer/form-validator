@@ -1,12 +1,13 @@
 {
   "name": "@web-tech-team/fv",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "type": "module",
   "devDependencies": {
+    "@types/lodash.curry": "^4.1.7",
     "chai": "^4.3.6",
     "mocha": "^9.2.2",
-    "rollup": "^2.70.2",
+    "rollup": "latest",
     "rollup-plugin-tslint": "^0.2.2",
     "rollup-plugin-typescript2": "^0.34.1",
     "rollup-plugin-uglify": "^6.0.4"
@@ -30,5 +31,8 @@
   },
   "publishConfig": {
     "@web-tech-team:registry": "https://github.krafton.com/_registry/npm/"
+  },
+  "dependencies": {
+    "lodash.curry": "^4.1.1"
   }
 }

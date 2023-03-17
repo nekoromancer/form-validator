@@ -1,16 +1,16 @@
-declare type Task = {
+type Task = {
     key: string;
     value: any;
     rules: Function[];
 };
-declare type Result = {
+type Result = {
     messages: string[];
     isPassed: boolean;
 };
-declare type TaskResult = {
+type TaskResult = {
     [key: string]: Result;
 };
-export declare type ValidationResult = {
+export type ValidationResult = {
     result: TaskResult;
     messages: string[];
     firstMessage: string;
@@ -21,21 +21,21 @@ export declare type ValidationResult = {
 };
 export declare const FV: (tasks: Task[]) => ValidationResult;
 export declare const r: {
-    required: (this: any) => any;
-    email: (this: any) => any;
-    url: (this: any) => any;
-    cellphone: (this: any) => any;
-    minLength: (this: any) => any;
-    maxLength: (this: any) => any;
-    gte: (this: any) => any;
-    lte: (this: any) => any;
-    gt: (this: any) => any;
-    lt: (this: any) => any;
-    regex: (this: any) => any;
-    numeric: (this: any) => any;
-    alphaNumeric: (this: any) => any;
-    same: (this: any) => any;
-    diff: (this: any) => any;
-    custom: (this: any) => any;
+    required: any;
+    email: any;
+    url: any;
+    cellphone: any;
+    minLength: any;
+    maxLength: any;
+    gte: any;
+    lte: any;
+    gt: any;
+    lt: any;
+    regex: any;
+    numeric: any;
+    alphaNumeric: any;
+    same: any;
+    diff: any;
+    custom: any;
 };
 export {};
