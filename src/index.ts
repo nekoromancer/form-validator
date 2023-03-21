@@ -1,8 +1,6 @@
 import rules  from "./Rules"
-import V from './Validator'
+import validator from './Validator'
 import { Result } from './Result'
-
-type Tasks = Result[];
 
 export type ValidationResult = {
     messages: string[];
@@ -13,7 +11,7 @@ export type ValidationResult = {
     orLast: Function;
 }
 
-export const F = (tasks: Tasks[]): ValidationResult => {
+export const F = (tasks: Result[][]): ValidationResult => {
     const result: Result[] = tasks.flatMap(task => task)
     const failed = result.filter(r => !r.isSuccessValue)
     const firstMessage = failed.length > 0 ? failed[0].val : ''
@@ -39,5 +37,5 @@ export const F = (tasks: Tasks[]): ValidationResult => {
 }
 
 export const r = rules
-export const v = V;
+export const v = validator;
 
