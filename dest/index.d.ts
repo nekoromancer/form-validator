@@ -1,17 +1,6 @@
-type Task = {
-    key: string;
-    value: any;
-    rules: Function[];
-};
-type Result = {
-    messages: string[];
-    isPassed: boolean;
-};
-type TaskResult = {
-    [key: string]: Result;
-};
+import { Result } from './Result';
+type Tasks = Result[];
 export type ValidationResult = {
-    result: TaskResult;
     messages: string[];
     firstMessage: string;
     lastMessage: string;
@@ -19,23 +8,24 @@ export type ValidationResult = {
     orFirst: Function;
     orLast: Function;
 };
-export declare const FV: (tasks: Task[]) => ValidationResult;
+export declare const F: (tasks: Tasks[]) => ValidationResult;
 export declare const r: {
-    required: any;
-    email: any;
-    url: any;
-    cellphone: any;
-    minLength: any;
-    maxLength: any;
-    gte: any;
-    lte: any;
-    gt: any;
-    lt: any;
-    regex: any;
-    numeric: any;
-    alphaNumeric: any;
-    same: any;
-    diff: any;
-    custom: any;
+    required: (message: string) => (value: any) => Result;
+    email: (message: string) => (value: string) => Result;
+    url: (message: string) => (value: string) => Result;
+    cellphone: (message: string) => (value: string) => Result;
+    minLength: (length: number) => (message: string) => (value: string) => Result;
+    maxLength: (length: number) => (message: string) => (value: string) => Result;
+    gte: (gte: number) => (message: string) => (value: number) => Result;
+    lte: (lte: number) => (message: string) => (value: number) => Result;
+    gt: (gt: number) => (message: string) => (value: number) => Result;
+    lt: (lt: number) => (message: string) => (value: number) => Result;
+    regex: (regex: RegExp) => (message: string) => (value: any) => Result;
+    numeric: (message: string) => (value: string | number) => Result;
+    alphaNumeric: (message: string) => (value: string) => Result;
+    same: (message: string) => (value?: never[]) => Result;
+    diff: (message: string) => (value?: never[]) => Result;
+    custom: (predicate: Function) => (message: string) => (value: any) => Result;
 };
+export declare const v: (value: any, ...rules: Function[]) => Result[];
 export {};

@@ -1,47 +1,26 @@
 # form-validation
 ## Usage
 ```typescript
-import { FV, r } from '@web-tech-team/fv'
+import { F, v, r } from '@web-tech-team/fv'
 import type { ValidationResult } from '@web-tech-team/fv';
 ```
-### FV
+### F, v
 ```typescript
-const validationResult: ValidationResult = FV([
-    {
-        key: 'username',
-        value: '',
-        rules: [
-            r.required('이름은 필수 항목입니다'),
-            r.minLength(2)('이름은 두 글자 이상입니다')
-        ],
-    },
-    {
-        key: 'email',
-        value: 'pubg@krafton',
-        rules: [
-            r.required('이메일은 필수 항목입니다'),
-            r.email('옳바른 형식의 이메일 주소를 입력해 주세요')
-        ]
-    }
+const validationResult: ValidationResult = F([
+    v(
+        'Playerunknown', 
+        r.required('이름은 필수 항목입니다'), 
+        r.minLength(2)('이름은 두 글자 이상입니다')
+    ),
+    v(
+        'pubg@krafton.com', 
+        r.required('이메일은 필수 항목입니다'), 
+        r.email('옳바른 형식의 이메일 주소를 입력해 주세요')
+    ),
 ])
 ```
 ```
 validationResult => {
-    "result": {
-        "username": {
-            "messages": [
-                "이름은 필수 항목입니다"
-                "이름은 두 글자 이상입니다",
-            ],
-            "isPassed": false
-        },
-        "email": {
-            "messages": [
-                "옳바른 형식의 이메일 주소를 입력해 주세요",
-            ],
-            "isPassed": false
-        }
-    },
     "messages": [
         "이름은 필수 항목입니다",
         "이름은 두 글자 이상입니다",
@@ -55,7 +34,7 @@ validationResult => {
 }
 ```
 ```javascript
-const result = FV([...])
+const result = F([...])
 
 result.orFirst(
     () => // 폼 검증 성공시 실행되는 함수 정의,
@@ -65,7 +44,7 @@ result.orFirst(
 
 result.orLast(
     () => // 폼 검증 성공시 실행되는 함수 정의,
-        message => alert(message),
+    message => alert(message),
     // 폼 검증 실패시 마지막 메세지를 전달
 )
 ```
@@ -84,42 +63,38 @@ result.orLast(
     isSuccessValue: false
 }
 ```
-모든 함수들은 Currying 되어 있다
 
 #### r.required
 값의 유무를 검증한다. 값이 null, undefined, 빈 문자열 인 경우 실패한다
 ```javascript
-{
-    ...
-    value: '',
-    rules: [
-        r.required('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    '',
+    r.required('이름은 필수 항목입니다'),
+  ),
+]
 ```
 
 #### r.email
 이메일 형식을 검증하다
 ```javascript
-{
-    ...
-    value: 'company@krafton.com',
-    rules: [
-        r.required('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    'company@krafton.com',
+    r.email('검증 실패 메세지'),
+  ),
+]
 ```
 
 #### r.url
 URL 형식을 검증한다
 ```javascript
-{
-    ...
-    value: 'https://krafton.com',
-    rules: [
-        r.url('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    'https://krafton.com',
+    r.url('검증 실패 메세지'),
+  ),
+]
 ```
 
 #### r.cellphone
@@ -133,145 +108,132 @@ URL 형식을 검증한다
 '0180201413'
 ```
 ```javascript
-{
-    ...
-    value: '02-784-2843',
-    rules: [
-        r.cellphone('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    '02-784-2843',
+    r.cellphone('검증 실패 메세지'),
+  ),
+]
 ```
 #### r.minLength
 문자열의 최소 길이 검증
 ```javascript
-{
-    ...
-    value: 'Some text',
-    rules: [
-        r.minLength(5)('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    'Some text',
+    r.minLength(5)('검증 실패 메세지')
+  ),
+]
 ```
 #### r.maxLength
 문자열의 최대 길이 검증
 ```javascript
-{
-    ...
-    value: 'Some text',
-    rules: [
-        r.maxLength(12)('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    'Some text',
+    r.maxLength(12)('검증 실패 메세지')
+  ),
+]
 ```
 #### r.gte
 숫자의 크기가 지정된 값 ``이상``인지 검증
 ```javascript
-{
-    ...
-    value: 9,
-    rules: [
-        r.gte(10)('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    9,
+    r.gte(10)('검증 실패 메세지')
+  ),
+]
 ```
 #### r.lte
 숫자의 크기가 지정된 값 ``이하``인지 검증
 ```javascript
-{
-    ...
-    value: 6,
-    rules: [
-        r.lte(3)('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    6,
+    r.lte(3)('검증 실패 메세지')
+  ),
+]
 ```
 #### r.gt
 숫자의 크기가 지정된 값을 ``초과``하는지 검증
 ```javascript
-{
-    ...
-    value: 4,
-    rules: [
-        r.gt(3)('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    4,
+    r.gt(3)('검증 실패 메세지')
+  ),
+]
 ```
 #### r.lt
 숫자의 크기가 지정된 값 ``미만``인지 검증
 ```javascript
-{
-    ...
-    value: 6,
-    rules: [
-        r.lt(6)('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    6,
+    r.lt(6)('검증 실패 메세지')
+  ),
+]
 ```
 #### r.regex
 정규식 검사를 실행
 ```javascript
-{
-    ...
-    value: '크래프톤',
-    rules: [
-        r.regex(/^[가-힣]+$/)('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    '크래프톤',
+    r.regex(/^[가-힣]+$/)('검증 실패 메세지')
+  ),
+]
 ```
 #### r.numeric
 주어진 값이 숫자로만 이루어져 있는지 검증
 ```javascript
-{
-    ...
-    value: 'K201',
-    rules: [
-        r.numeric('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    'K201',
+    r.numeric('검증 실패 메세지')
+  ),
+]
 ```
 #### r.alphaNumeric
 주어진 값이 숫자와 알파벳 대소문자로만 이루어져 있는지 검증
 ```javascript
-{
-    ...
-    value: 'Krafton2022',
-    rules: [
-        r.alphaNumeric('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    'Krafton2023',
+    r.alphaNumeric('검증 실패 메세지')
+  ),
+]
 ```
 #### r.same
 주어진 값들이 모두 같은지 검증
 ```javascript
-{
-    ...
-    value: [1, 1, 1],
-    rules: [
-        r.same('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    [1, 1, 1],
+    r.same('검증 실패 메세지')
+  ),
+]
 ```
 #### r.diff
 주어진 값들이 모두 서로 다른 값인지 검증
 ```javascript
-{
-    ...
-    value: [1, 2, 3],
-    rules: [
-        r.diff('검증 실패 메세지')
-    ]
-}
+[
+  v(
+    [1, 2, 3],
+    r.diff('검증 실패 메세지')
+  ),
+]
 ```
 #### r.custom
 사용자 정의 규칙을 생성한다. 다음은 값이 배열인지 검증하는 규칙을 생성하여 적용하는 코드이다
 ```javascript
 const isArray = r.custom(value => Array.isArray(value))
 ...
-{
-    ...
-    value: ['a', 'b', 'c'],
-    rules: [
-        isArray('검증 실패 메세지')    
-    ]   
-}
+[
+  v(
+    ['a', 'b', 'c'],
+    isArray('검증 실패 메세지')
+  ),
+]
 ```

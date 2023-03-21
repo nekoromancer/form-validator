@@ -1,22 +1,10 @@
-import rules  from "./Rules";
+import rules  from "./Rules"
+import V from './Validator'
+import { Result } from './Result'
 
-type Task = {
-    key: string;
-    value: any;
-    rules: Function[];
-}
-
-type Result = {
-    messages: string[];
-    isPassed: boolean;
-}
-
-type TaskResult = {
-    [key: string]: Result;
-}
+type Tasks = Result[];
 
 export type ValidationResult = {
-    result: TaskResult;
     messages: string[];
     firstMessage: string;
     lastMessage: string;
@@ -25,39 +13,15 @@ export type ValidationResult = {
     orLast: Function;
 }
 
-export const FV = (tasks: Task[]): ValidationResult => {
-    const data = tasks.map(task => {
-        const taskResult = task.rules.map(rule => rule(task.value))
-        return {
-            key: task.key,
-            result: taskResult,
-            isPassed: taskResult.every(({ isSuccessValue }) => isSuccessValue),
-        }
-    })
-    const result = Object.fromEntries(data.map(item => [
-        item.key,
-        {
-            messages: item.result
-                .filter(result => !result.isSuccessValue)
-                .map(({val}) => val),
-            isPassed: item.isPassed
-        }
-    ]))
-    const messages = data
-        .filter(r => !r.isPassed)
-        .map(r => r.result
-            .filter(({ isSuccessValue }) => !isSuccessValue)
-            .map(({ val }) => val)
-        )
-        .flat()
-    const length = messages.length
-    const isPassed = length === 0
-    const firstMessage = !isPassed ? messages[0] : ''
-    const lastMessage = !isPassed ? messages[length - 1] : ''
+export const F = (tasks: Tasks[]): ValidationResult => {
+    const result: Result[] = tasks.flatMap(task => task)
+    const failed = result.filter(r => !r.isSuccessValue)
+    const firstMessage = failed.length > 0 ? failed[0].val : ''
+    const lastMessage = failed.length > 0 ? failed[failed.length - 1].val : ''
+    const isPassed = failed.length === 0
 
     return {
-        result,
-        messages,
+        messages: failed.map(r => r.val),
         firstMessage,
         lastMessage,
         isPassed,
@@ -75,3 +39,5 @@ export const FV = (tasks: Task[]): ValidationResult => {
 }
 
 export const r = rules
+export const v = V;
+
