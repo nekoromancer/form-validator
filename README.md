@@ -4,7 +4,7 @@
 import { F, v, r } from '@web-tech-team/fv'
 import type { ValidationResult } from '@web-tech-team/fv';
 ```
-### F, v
+### F 함수
 ```typescript
 const validationResult: ValidationResult = F([
     v(
@@ -48,8 +48,86 @@ result.orLast(
     // 폼 검증 실패시 마지막 메세지를 전달
 )
 ```
-### r
-폼 검증용 함수들로 반환 값은 다음과 같다
+
+### v 함수
+하나의 필드를 검증하기 위한 함수로 다음과 같이 단독으로 사용 가능하다.
+```typescript
+v(
+    someValue,
+    r.required('이름은 필수 항목입니다'), 
+    r.minLength(2)('이름은 두 글자 이상입니다')
+)
+```
+
+v함수는 ResultList 라는 클래스를 반환한다.
+```typescript
+ResultList {
+  _results: [
+    Result { val: '이름은 필수 항목입니다', isSuccessValue: false },
+    Result { val: '이름은 두 글자 이상입니다', isSuccessValue: false }
+  ]
+}
+```
+
+### ResultList.toArray()
+ResultList에서 검증에 실패한 항목들의 메세지만을 배열로 반환한다. 
+```typescript
+ResultList {
+  _results: [
+    Result { val: '이름은 필수 항목입니다', isSuccessValue: false },
+    Result { val: '이름은 두 글자 이상입니다', isSuccessValue: true }
+  ]
+}.toArray() => ['이름은 두 글자 이상입니다']
+```
+
+### ResultList.toResult()
+ResultList에서 검증에 실패한 항목들의 Result 객체를 반환한다. 
+```typescript
+ResultList {
+  _results: [
+    Result { val: '이름은 필수 항목입니다', isSuccessValue: false },
+    Result { val: '이름은 두 글자 이상입니다', isSuccessValue: true }
+  ]
+}.toArray() => [
+  Result { val: '이름은 필수 항목입니다', isSuccessValue: false },
+]
+```
+
+### ResultList.getFirst()
+ResultList의 첫번째 요소를 반환한다.
+```typescript
+ResultList {
+  _results: [
+    Result { val: '이름은 필수 항목입니다', isSuccessValue: false },
+    Result { val: '이름은 두 글자 이상입니다', isSuccessValue: false }
+  ]
+}.toArray() => '이름은 필수 항목입니다'
+```
+
+### ResultList.getLast()
+ResultList의 마지막 요소를 반환한다.
+```typescript
+ResultList {
+  _results: [
+    Result { val: '이름은 필수 항목입니다', isSuccessValue: false },
+    Result { val: '이름은 두 글자 이상입니다', isSuccessValue: false }
+  ]
+}.toArray() => '이름은 두 글자 이상입니다'
+```
+
+### ResultList.isPassed()
+ResultList의 모든 요소가 검증에 성공했는지 여부를 반환한다.
+```typescript
+ResultList {
+  _results: [
+    Result { val: '이름은 필수 항목입니다', isSuccessValue: false },
+    Result { val: '이름은 두 글자 이상입니다', isSuccessValue: false }
+  ]
+}.isPassed() => false
+```
+
+### r 함수
+폼을 검증하기 위한 세부적인 함수들의 집합으로 반환 값은 다음과 같으며, 각각의 함수들은 단독으로 사용할 수 있다.
 ```javascript
 // Validation passed: Success
 {
@@ -76,7 +154,7 @@ result.orLast(
 ```
 
 #### r.email
-이메일 형식을 검증하다
+이메일 형식을 검증한다
 ```javascript
 [
   v(

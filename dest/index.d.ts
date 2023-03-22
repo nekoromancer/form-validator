@@ -1,4 +1,5 @@
 import { Result } from './Result';
+import { ResultList } from "./ResultList";
 export type ValidationResult = {
     messages: string[];
     firstMessage: string;
@@ -7,7 +8,7 @@ export type ValidationResult = {
     orFirst: Function;
     orLast: Function;
 };
-export declare const F: (tasks: Result[][]) => ValidationResult;
+export declare const F: (tasks: ResultList[]) => ValidationResult;
 export declare const r: {
     required: (message: string) => (value: any) => Result;
     email: (message: string) => (value: string) => Result;
@@ -26,4 +27,4 @@ export declare const r: {
     diff: (message: string) => (value?: never[]) => Result;
     custom: (predicate: Function) => (message: string) => (value: any) => Result;
 };
-export declare const v: (value: any, ...rules: Function[]) => Result[];
+export declare const v: (value: any, ...rules: Function[]) => ResultList;

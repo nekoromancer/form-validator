@@ -1,6 +1,7 @@
 import rules  from "./Rules"
 import validator from './Validator'
 import { Result } from './Result'
+import { ResultList } from "./ResultList";
 
 export type ValidationResult = {
     messages: string[];
@@ -11,8 +12,10 @@ export type ValidationResult = {
     orLast: Function;
 }
 
-export const F = (tasks: Result[][]): ValidationResult => {
-    const result: Result[] = tasks.flatMap(task => task)
+export const F = (tasks: ResultList[]): ValidationResult => {
+    const result: Result[] = tasks
+        .map((task: ResultList)  => task.toResult())
+        .flatMap(task => task)
     const failed = result.filter(r => !r.isSuccessValue)
     const firstMessage = failed.length > 0 ? failed[0].val : ''
     const lastMessage = failed.length > 0 ? failed[failed.length - 1].val : ''
