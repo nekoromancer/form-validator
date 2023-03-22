@@ -92,7 +92,7 @@ ResultList {
     Result { val: '이름은 필수 항목입니다', isSuccessValue: false },
     Result { val: '이름은 두 글자 이상입니다', isSuccessValue: true }
   ]
-}.toArray() => [
+}.toResult() => [
   Result { val: '이름은 필수 항목입니다', isSuccessValue: false },
 ]
 ```
@@ -105,7 +105,7 @@ ResultList {
     Result { val: '이름은 필수 항목입니다', isSuccessValue: false },
     Result { val: '이름은 두 글자 이상입니다', isSuccessValue: false }
   ]
-}.toArray() => '이름은 필수 항목입니다'
+}.getFirst() => '이름은 필수 항목입니다'
 ```
 
 ### ResultList.getLast()
@@ -116,7 +116,7 @@ ResultList {
     Result { val: '이름은 필수 항목입니다', isSuccessValue: false },
     Result { val: '이름은 두 글자 이상입니다', isSuccessValue: false }
   ]
-}.toArray() => '이름은 두 글자 이상입니다'
+}.getLast() => '이름은 두 글자 이상입니다'
 ```
 
 ### ResultList.isPassed()
