@@ -1,8 +1,12 @@
 # form-validation
 ## Usage
+### Install
+```bash
+npm i simple-formv
+```
 ```typescript
-import { F, v, r } from '@web-tech-team/fv'
-import type { ValidationResult } from '@web-tech-team/fv';
+import { F, v, r } from 'simple-formv'
+import type { ValidationResult } from 'simple-formv'
 ```
 ### F 함수
 ```typescript
