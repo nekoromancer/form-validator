@@ -131,7 +131,7 @@ ResultList {
 ```javascript
 // Validation passed: Success
 {
-    val: '각 Task의 key 값',
+    val: '검증에 성공한 값',
     isSuccessValue: true
 }
 
