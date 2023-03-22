@@ -13,7 +13,7 @@ const validationResult: ValidationResult = F([
         r.minLength(2)('이름은 두 글자 이상입니다')
     ),
     v(
-        'pubg@krafton.com', 
+        'some@email.com', 
         r.required('이메일은 필수 항목입니다'), 
         r.email('옳바른 형식의 이메일 주소를 입력해 주세요')
     ),

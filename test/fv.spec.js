@@ -6,7 +6,7 @@ describe('Form validator test', () => {
     it('Form Validation: Validation passed', () => {
         const passed = F([
             v('Playerunknown', r.required('이름은 필수 항목입니다'), r.minLength(2)('이름은 두 글자 이상입니다')),
-            v('pubg@krafton.com', r.required('이메일은 필수 항목입니다'), r.email('옳바른 형식의 이메일 주소를 입력해 주세요')),
+            v('some@email.com', r.required('이메일은 필수 항목입니다'), r.email('옳바른 형식의 이메일 주소를 입력해 주세요')),
         ])
 
         expect(passed.isPassed).to.eq(true)
@@ -15,7 +15,7 @@ describe('Form validator test', () => {
     it('Form Validation: Validation failed', () => {
         const failed = F([
             v('', r.required('이름은 필수 항목입니다'), r.minLength(2)('이름은 두 글자 이상입니다')),
-            v('pubg-krafton-com', r.required('이메일은 필수 항목입니다'), r.email('옳바른 형식의 이메일 주소를 입력해 주세요')),
+            v('some-email-com', r.required('이메일은 필수 항목입니다'), r.email('옳바른 형식의 이메일 주소를 입력해 주세요')),
         ])
 
         expect(failed.isPassed).to.eq(false)
